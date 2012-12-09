@@ -1,0 +1,13 @@
+<games>
+  <question>
+    <text>Do you hate me?</text>
+    <answer>I don't hate you</answer>
+    <answer>Goodbye friend</answer>
+  </question>
+  <question>
+    <text>Where am I?</text>
+    <answer>Are you still there?</answer>
+    <answer>There you are</answer>
+    <answer>Where are you?</answer>
+  </question>
+</games>

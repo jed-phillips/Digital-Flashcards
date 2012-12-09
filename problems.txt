@@ -1,0 +1,12 @@
+int(dx) x+C
+int(x^n) x^(n+1)/(n+1)+C (1/(n+1))*x^(n+1)+C
+int(e^x)dx e^x+C
+int(sin(x))dx -cos(x)+C
+int(cos(x))dx sin(x)+C
+int(tan(x))dx ln|sec(x)|+C ln(|sec(x)|)+C
+int((sec(x))^2)dx tan(x)+C
+int((csc(x))^2)dx -cot(x)+C
+int(sec(x)*tan(x))dx sec(x)+C
+int(csc(x)*cot(x))dx -csc(x)+C
+int(a^x)dx a^x/ln(a)+C (1/ln(a))*a^x+C
+int(1/x)dx ln|x|+C ln(|x|)+C
