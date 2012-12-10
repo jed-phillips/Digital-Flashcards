@@ -1,0 +1,18 @@
+<fractions>
+  <question>
+    <text>5/2 + 2/4 =</text>
+    <answer>3</answer>
+    <answer>6/2</answer>
+    <answer>12/4</answer>
+  </question>
+  <question>
+    <text>1/3 * 3/2 =</text>
+    <answer>1/2</answer>
+    <answer>3/6</answer>
+  </question>
+  <question> 
+    <text>3/5 * 5/3 = </text>
+    <answer>1</answer>
+    <answer>15/15</answer>
+  </question>
+</fractions>

@@ -1,0 +1,50 @@
+<addition>
+  <question>
+    <text>2 + 2 =</text>
+    <answer>4</answer>
+  </question>
+  <question>
+    <text>3 + 5 =</text>
+    <answer>8</answer>
+  </question>
+  <question>
+    <text>-6 + (-5) =</text>
+    <answer>-11</answer>
+  </question>
+  <question>
+    <text>11 + 10 =</text>
+    <answer>21</answer>
+  </question>
+  <question>
+    <text>100 + 100 =</text>
+    <answer>200</answer>
+  </question>
+  <question>
+    <text>50 + (-75) =</text>
+    <answer>-25</answer>
+  </question>
+  <question>
+    <text>-49 + 9 =</text>
+    <answer>-40</answer>
+  </question>
+  <question>
+    <text>5 + 10 =</text>
+    <answer>15</answer>
+  </question>
+  <question>
+    <text>1000 + 1 =</text>
+    <answer>1001</answer>
+  </question>
+  <question>
+    <text>750 + 25 + 5 =</text>
+    <answer>780</answer>
+  </question>
+  <question>
+    <text>16 + (-8) + 4 =</text>
+    <answer>12</answer>
+  </question>
+  <question>
+    <text>-5 + 7 + 22 =</text>
+    <answer>24</answer>
+  </question>
+</addition>
