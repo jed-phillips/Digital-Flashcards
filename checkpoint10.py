@@ -106,7 +106,7 @@ class QuizWidget(QMainWindow):
 
         self.deck = cards()
         #have the user pick a file name from a menu
-        self.deck.readQuestions('science.xml')
+        self.deck.readQuestions('algebra.xml')
 
         self.setWindowTitle('Quiz Applet')
 
