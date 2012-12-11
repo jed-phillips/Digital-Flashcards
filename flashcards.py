@@ -110,7 +110,7 @@ class QuizWidget(QMainWindow):
         self.deck = cards()
         self.deck.readQuestions(sys.argv[(len(sys.argv)-1)])
 
-        self.setWindowTitle('Quiz Applet')
+        self.setWindowTitle('Digital Flashcards')
 
         # Initialize answer box; connect "enter" signal to answer-checker and
         # window-update functions
