@@ -72,7 +72,6 @@ class question(object):
         self.answers = []
         for ans in element.getElementsByTagName('answer'):
             fix = ans.childNodes[0].nodeValue.replace(' ', '')
-#            fix = fix.lower()
             self.answers.append(fix)
 
     def weight(self):
@@ -141,16 +140,6 @@ class QuizWidget(QMainWindow):
         bdw.setWidget(self.notification)
         self.addDockWidget(Qt.BottomDockWidgetArea, bdw)
 
-#        dselect = QDockWidget(self)
-#        dselect.setAllowedAreas(Qt.RightDockWidgetArea)
-#        self.deckList = QListWidget()
-#        self.deckList.setSelectionMode(QAbstractItemView.ExtendedSelection)
-#        for thing in self.deck.files:
-#            self.deckList.addItem(thing)
-#            self.connect(self.deckList, SIGNAL('itemActivated()'), SLOT(self.deck.readQuestions(thing)))
-#        dselect.setWidget(self.deckList)
-#        self.addDockWidget(Qt.RightDockWidgetArea, dselect)
-
         # Generate and display first question
         self.generate_things()
         self.labelQuestion = QLabel()
@@ -178,7 +167,6 @@ class QuizWidget(QMainWindow):
         counters are bumped.
         '''
         guess = self.answerBox.text()
-#        guess = guess.lower()
         guess.replace(' ', '')
         guess.replace('[', '(')
         guess.replace(']', ')')
@@ -207,7 +195,6 @@ class QuizWidget(QMainWindow):
         self.labelQuestion.clear()
         thing = str(self.deck.qList[self.qNumber].question)
         self.labelQuestion.setText(thing)
-        print self.labelQuestion.text()
         self.missBox.setText('Number missed: '+str(self.number_missed))
         self.correctBox.setText('Number correct: '+str(self.number_correct))
         self.answerBox.clear()
