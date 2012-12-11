@@ -1,6 +1,5 @@
-'''Removed QListView for deck selection; single deck may now be selected
-via last argument from command line.
-'''
+# Save file/load on startup
+# Checkboxes to choose decks to include
 
 import sys
 import xml.dom.minidom
@@ -72,7 +71,9 @@ class question(object):
         self.question = getValue(element, 'text')
         self.answers = []
         for ans in element.getElementsByTagName('answer'):
-            self.answers.append(ans.childNodes[0].nodeValue.replace(" ", ""))
+            fix = ans.childNodes[0].nodeValue.replace(' ', '')
+#            fix = fix.lower()
+            self.answers.append(fix)
 
     def weight(self):
         if 2*self.missCounter - self.totalCounter < 1:
@@ -96,33 +97,44 @@ def getValue(element, name):
 
 class QuizWidget(QMainWindow):
     def __init__(self):
+        '''Initializes main application window and all widgets.
+        '''
         QMainWindow.__init__(self)
-        self.setGeometry(300, 300, 500, 100)
+        self.setGeometry(300, 300, 400, 100)
 
+        # Initialize counters for questions correct and missed
         self.number_correct = 0
         self.number_missed = 0
 
+        # Generate deck of flashcards, and read in questions from command-line
+        # passed file.
         self.deck = cards()
-        self.deck.readQuestions(sys.argv[-1])
+        self.deck.readQuestions(sys.argv[(len(sys.argv)-1)])
 
         self.setWindowTitle('Quiz Applet')
 
+        # Initialize answer box; connect "enter" signal to answer-checker and
+        # window-update functions
         self.answerBox = QLineEdit()
         self.connect(self.answerBox, SIGNAL('returnPressed()'), self.check_answer)
         self.connect(self.answerBox, SIGNAL('returnPressed()'), self._update)
 
+        # Create widget to display number of questions missed
         ldw = QDockWidget(self)
         ldw.setAllowedAreas(Qt.TopDockWidgetArea)
         self.missBox = QLabel()
         ldw.setWidget(self.missBox)
         self.addDockWidget(Qt.TopDockWidgetArea, ldw)
 
+        # Create widget to display number of questions answered correctly
         rdw = QDockWidget(self)
         rdw.setAllowedAreas(Qt.TopDockWidgetArea)
         self.correctBox = QLabel()
         rdw.setWidget(self.correctBox)
         self.addDockWidget(Qt.TopDockWidgetArea, rdw)
 
+        # Create widget to notify user of correct or missed answer, and display
+        # correct answer if necessary
         bdw = QDockWidget(self)
         bdw.setAllowedAreas(Qt.BottomDockWidgetArea)
         self.notification = QLabel()
@@ -139,36 +151,46 @@ class QuizWidget(QMainWindow):
 #        dselect.setWidget(self.deckList)
 #        self.addDockWidget(Qt.RightDockWidgetArea, dselect)
 
-        self.main_frame = QWidget()
-        self.setCentralWidget(self.main_frame)
-
+        # Generate and display first question
         self.generate_things()
         self.labelQuestion = QLabel()
         self.labelQuestion.setText(str(self.deck.qList[self.qNumber].question))
 
+        # Set up layout of main window
+        self.main_frame = QWidget()
+        self.setCentralWidget(self.main_frame)
         self.vbox = QVBoxLayout()
         self.vbox.addWidget(self.labelQuestion)
         self.vbox.addWidget(self.answerBox)
         self.main_frame.setLayout(self.vbox)
 
     def generate_things(self):
+        '''Generates semi-random question based on weighting index and stores
+        list of acceptable answers.
+        '''
         self.qNumber = self.deck.randomWeightedIndex()
         self.currentAnswers = self.deck.qList[self.qNumber].answers
 
     def check_answer(self):
+        '''Reads in user-inputted answer, changes certain formatting elements
+        to ensure uniformity, and checks reformatted answer against list of
+        acceptable answers. Appropriate response is sent to display, and 
+        counters are bumped.
+        '''
         guess = self.answerBox.text()
+#        guess = guess.lower()
         guess.replace(' ', '')
         guess.replace('[', '(')
         guess.replace(']', ')')
         guess.replace('**', '^')
 
+        # Correct answer case:
         if guess in self.currentAnswers:
-            print 'you win!'
             self.number_correct += 1
             self.deck.qList[self.qNumber].totalCounter += 1
             self.notificationText = 'Correct!'
+        # Wrong answer case:
         else:
-            print 'nope'
             self.number_missed += 1
             self.deck.qList[self.qNumber].missCounter += 1
             self.deck.qList[self.qNumber].totalCounter += 1
@@ -176,6 +198,11 @@ class QuizWidget(QMainWindow):
             self.notificationText = 'Nope; the correct answer is '+actualAnswer
 
     def _update(self):
+        '''Prepares window for next question when 'enter' is pressed.
+        Generates new question and displays it, clears the answer box, updates
+        the counter displays, and shows either the 'answer was correct' or
+        'answer was incorrect' response.
+        '''
         self.generate_things()
         self.labelQuestion.clear()
         thing = str(self.deck.qList[self.qNumber].question)
